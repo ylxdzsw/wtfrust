@@ -1,7 +1,7 @@
 wtfrust
 =======
 
-Collection of "surprising behaviour" in Rust. See also [wtfpython] and [wtfjs].
+Collection of "surprising behaviours" in Rust. In the same spirit of [wtfpython] and [wtfjs].
 
 [wtfpython]: https://github.com/satwikkansal/wtfpython
 [wtfjs]: https://github.com/denysdovhan/wtfjs
@@ -9,7 +9,7 @@ Collection of "surprising behaviour" in Rust. See also [wtfpython] and [wtfjs].
 This document avoids common and general problems in programming like float arithmetics, string encodings, etc. and focus
 on the behaviours specific to Rust.
 
-Luckily, most of the examples either require `unsafe` or get warnings from the compiler or clippy.
+Luckily, most of the examples either require `unsafe` or get warnings from clippy.
 
 ## Mutable Const
 
@@ -32,9 +32,7 @@ used as stack variables or immediate values.
 
 **Solution**: 1). Use `static` for types with interior mutability, and use `const` for real constants. 2). `cargo clippy`.
 
-**References**: [the book].
-
-[the book]: https://doc.rust-lang.org/book/ch03-01-variables-and-mutability.html#differences-between-variables-and-constants
+**References**: [the book](https://doc.rust-lang.org/book/ch03-01-variables-and-mutability.html#differences-between-variables-and-constants).
 
 ## Reading uninitialized memory
 
@@ -66,8 +64,8 @@ dropping uninitialized memory is equally bad because it may read it during dropp
 `ptr::write` to write to uninitialized memory, as the move operator (`=`) implicitly drops the old value. Also use
 `MaybeUninit` instead of `std::mem::uninitialized` to protect from implicit dropping during panicking.
 
-**References**: [doc of `std::hint::unreachable_unchecked`] states "In particular, the compiler assumes that all UB must
-never happen, and therefore will eliminate all branches that reach to ...".
+**References**: [doc of `std::hint::unreachable_unchecked`] states that "In particular, the compiler assumes that all UB
+must never happen, and therefore will eliminate all branches that reach to ...".
 
 [doc of `std::hint::unreachable_unchecked`]: https://doc.rust-lang.org/std/hint/fn.unreachable_unchecked.html#safety
 
@@ -99,10 +97,7 @@ behaviour becomes confusing when a reference type or smart pointer implements th
 **Solution**: 1). Use fully qualified function call syntax `<type as trait>::function()` when there are potential
 ambiguity. 2). `cargo clippy`.
 
-**References**: [the book].
-
-[the book]: https://doc.rust-lang.org/book/ch19-03-advanced-traits.html#fully-qualified-syntax-for-disambiguation-calling-methods-with-the-same-name
-
+**References**: [the book](https://doc.rust-lang.org/book/ch19-03-advanced-traits.html#fully-qualified-syntax-for-disambiguation-calling-methods-with-the-same-name).
 
 
 
